@@ -6,6 +6,8 @@ use crate::{chain::eth::EthHeader, result::Result, rpc::RPC};
 use async_trait::async_trait;
 use reqwest::Client;
 
+pub use self::{block::EthBlockNumberResp, header::EthHeaderRPCResp};
+
 /// Ethereum rpc set
 pub struct EthereumRPC<'r> {
     /// Reqwest client

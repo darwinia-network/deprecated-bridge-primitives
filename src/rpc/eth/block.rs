@@ -3,10 +3,12 @@ use reqwest::Client;
 use serde_json::Value;
 use std::fmt::Debug;
 
+/// Ethereum current block rpc resp
 #[derive(Serialize, Deserialize, Debug)]
 pub struct EthBlockNumberResp {
     jsonrpc: String,
     id: i32,
+    /// Block number result of RPC
     pub result: String,
 }
 
