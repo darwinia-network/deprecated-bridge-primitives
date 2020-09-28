@@ -32,14 +32,3 @@ pub struct MMRProofJson {
     /// The mmrProof of two leaves above
     pub proof: Vec<String>,
 }
-
-// impl MMRProofJson {
-//     /// Generate MMRProof
-//     pub fn gen(store: &Store, member: u64, leaf: u64) -> Self {
-//         Self {
-//             member_leaf_index: member,
-//             last_leaf_index: leaf,
-//             proof: helper::gen_proof(store, member, leaf),
-//         }
-//     }
-// }
