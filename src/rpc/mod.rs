@@ -11,15 +11,18 @@ pub trait RPC {
     /// Block Header
     type Header;
 
-    /// Geth header by block hash hex
+    /// Get header by block hash hex
     async fn get_header_by_hash(&self, block: &str) -> Result<Self::Header>
     where
         Self: Sized;
 
-    /// Geth header by block number
+    /// Get header by block number
     async fn get_header_by_number(&self, block: u64) -> Result<Self::Header>
     where
         Self: Sized;
+
+    /// Get current highest block
+    async fn block_number(&self) -> Result<u64>;
 }
 
 /// Exports

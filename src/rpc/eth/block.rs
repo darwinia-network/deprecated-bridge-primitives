@@ -1,10 +1,7 @@
+use crate::result::Result;
 use reqwest::Client;
-use serde::Serialize;
 use serde_json::Value;
-
-use std::{env, fmt::Debug};
-
-use crate::result::Error;
+use std::fmt::Debug;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct EthBlockNumberResp {
@@ -13,8 +10,8 @@ pub struct EthBlockNumberResp {
     pub result: String,
 }
 
-/// Get ethereum confirmations
-pub async fn get(client: &Client, block: u64) -> Result<u64, Error> {
+/// Get ethereum block number
+pub async fn block_number(client: &Client, rpc: &str) -> Result<u64> {
     let map: Value = serde_json::from_str(&format! {
         "{{{}}}", vec![
             r#""jsonrpc":"2.0","#,
@@ -24,15 +21,9 @@ pub async fn get(client: &Client, block: u64) -> Result<u64, Error> {
         ].concat(),
     })?;
 
-    Ok(i64::from_str_radix(
+    Ok(u64::from_str_radix(
         &client
-            .post(&env::var("ETHEREUM_RPC").unwrap_or_else(|_| {
-                if env::var("ETHEREUM_ROPSTEN").is_ok() {
-                    crate::conf::DEFAULT_ETHEREUM_ROPSTEN_RPC.into()
-                } else {
-                    crate::conf::DEFAULT_ETHEREUM_RPC.into()
-                }
-            }))
+            .post(rpc)
             .json(&map)
             .send()
             .await?
@@ -42,6 +33,5 @@ pub async fn get(client: &Client, block: u64) -> Result<u64, Error> {
             .trim_start_matches("0x"),
         16,
     )
-    .unwrap_or(0) as u64
-        - block)
+    .unwrap_or(0))
 }

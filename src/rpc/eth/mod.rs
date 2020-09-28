@@ -1,4 +1,5 @@
 //! Ethereum RPC calls
+mod block;
 mod header;
 
 use crate::{chain::eth::EthHeader, result::Result, rpc::RPC};
@@ -7,13 +8,15 @@ use reqwest::Client;
 
 /// Ethereum rpc set
 pub struct EthereumRPC<'r> {
+    /// Reqwest client
     pub client: &'r Client,
+    /// Rpc host
     pub rpc: &'r str,
 }
 
-impl EthereumRPC {
+impl<'r> EthereumRPC<'r> {
     /// New EthereumRPC
-    pub fn new(client: &str, rpc: &str) -> Self {
+    pub fn new(client: &'r Client, rpc: &'r str) -> Self {
         EthereumRPC { client, rpc }
     }
 }
@@ -36,5 +39,9 @@ impl<'r> RPC for EthereumRPC<'r> {
                 .result
                 .into(),
         )
+    }
+
+    async fn block_number(&self) -> Result<u64> {
+        block::block_number(self.client, self.rpc).await
     }
 }
