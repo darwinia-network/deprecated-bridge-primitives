@@ -5,73 +5,10 @@ use crate::{
 use parity_scale_codec::{Decode, Encode};
 use std::{fmt::Debug, str::FromStr};
 
-// /// Ethereum JSON rpc response
-// #[derive(Serialize, Deserialize, Debug)]
-// pub struct EthHeaderRPCResp {
-//     jsonrpc: String,
-//     id: i32,
-//     /// Header Result of RPC
-//     pub result: RawEthHeader,
-// }
-//
-// impl EthHeaderRPCResp {
-//     /// Get `EthHeader` by number
-//     pub async fn get_by_hash(client: &Client, block: &str) -> Result<EthHeaderRPCResp, Error> {
-//         let map: Value = serde_json::from_str(&format! {
-//             "{{{}}}", vec![
-//                 r#""jsonrpc":"2.0","#,
-//                 r#""method":"eth_getBlockByHash","#,
-//                 &format!(r#""params":["{}", false],"#, block),
-//                 r#""id": 1"#,
-//             ].concat(),
-//         })?;
-//
-//         Ok(client
-//             .post(&env::var("ETHEREUM_RPC").unwrap_or_else(|_| {
-//                 if env::var("ETHEREUM_ROPSTEN").is_ok() {
-//                     crate::conf::DEFAULT_ETHEREUM_ROPSTEN_RPC.into()
-//                 } else {
-//                     crate::conf::DEFAULT_ETHEREUM_RPC.into()
-//                 }
-//             }))
-//             .json(&map)
-//             .send()
-//             .await?
-//             .json()
-//             .await?)
-//     }
-//
-//     /// Get `EthHeader` by number
-//     pub async fn get(client: &Client, block: u64) -> Result<EthHeaderRPCResp, Error> {
-//         let map: Value = serde_json::from_str(&format! {
-//             "{{{}}}", vec![
-//                 r#""jsonrpc":"2.0","#,
-//                 r#""method":"eth_getBlockByNumber","#,
-//                 &format!(r#""params":["{:#X}", false],"#, block),
-//                 r#""id": 1"#,
-//             ].concat(),
-//         })?;
-//
-//         Ok(client
-//             .post(&env::var("ETHEREUM_RPC").unwrap_or_else(|_| {
-//                 if env::var("ETHEREUM_ROPSTEN").is_ok() {
-//                     crate::conf::DEFAULT_ETHEREUM_ROPSTEN_RPC.into()
-//                 } else {
-//                     crate::conf::DEFAULT_ETHEREUM_RPC.into()
-//                 }
-//             }))
-//             .json(&map)
-//             .send()
-//             .await?
-//             .json()
-//             .await?)
-//     }
-// }
-
 /// Raw EthHeader from Ethereum rpc
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct RawEthHeader {
+pub struct EthHeaderRPC {
     difficulty: String,
     extra_data: String,
     gas_limit: String,
@@ -83,6 +20,7 @@ pub struct RawEthHeader {
     mix_hash: String,
     nonce: String,
     number: String,
+    /// Parent hash
     pub parent_hash: String,
     receipts_root: String,
     sha3_uncles: String,
@@ -95,7 +33,7 @@ pub struct RawEthHeader {
     uncles: Vec<String>,
 }
 
-impl Into<EthHeader> for RawEthHeader {
+impl Into<EthHeader> for EthHeaderRPC {
     fn into(self) -> EthHeader {
         let seal: Vec<Vec<u8>> = vec![
             rlp::encode(&bytes!(self.mix_hash.as_str())),
@@ -144,21 +82,6 @@ pub struct EthHeader {
     /// Ethereum header hash
     pub hash: Option<[u8; 32]>,
 }
-
-// impl EthHeader {
-//     /// Get header
-//     pub async fn get_by_hash(client: &Client, block: &str) -> Result<EthHeader, Error> {
-//         Ok(EthHeaderRPCResp::get_by_hash(client, block)
-//             .await?
-//             .result
-//             .into())
-//     }
-//
-//     /// Get header
-//     pub async fn get(client: &Client, block: u64) -> Result<EthHeader, Error> {
-//         Ok(EthHeaderRPCResp::get(client, block).await?.result.into())
-//     }
-// }
 
 /// Darwinia Eth header Json foramt
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize, Default, Encode)]
