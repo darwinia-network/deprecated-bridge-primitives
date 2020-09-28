@@ -5,8 +5,7 @@ mod header;
 mod mmr_proof;
 
 pub use self::{
-    // confirmation::get as confirmation,
     ethash_proof::{EthashProof, EthashProofJson},
-    header::{EthHeader, EthHeaderJson},
+    header::{EthHeader, EthHeaderJson, EthHeaderRPC},
     mmr_proof::{HeaderStuffs, MMRProof, MMRProofJson},
 };

@@ -1,4 +1,4 @@
-use crate::eth::{EthHeader, EthashProof};
+use crate::chain::eth::{EthHeader, EthashProof};
 use parity_scale_codec::{Decode, Encode};
 use serde::Serialize;
 

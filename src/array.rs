@@ -1,3 +1,4 @@
+//! Custom byte array
 use parity_scale_codec::{Decode, Encode};
 use serde::{
     de::{Deserialize, Deserializer, Error, SeqAccess, Visitor},
@@ -11,9 +12,11 @@ use uint::construct_uint;
 
 /// Big Array Serde
 pub trait BigArray<'de>: Sized {
+    /// Serialize big array
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer;
+    /// Deserialize big array
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>;
