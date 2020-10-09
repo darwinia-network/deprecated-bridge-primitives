@@ -2,7 +2,7 @@ use crate::{
     array::{H1024, U256},
     hex,
 };
-use parity_scale_codec::{Decode, Encode};
+use codec::{Decode, Encode};
 use std::{fmt::Debug, str::FromStr};
 
 /// Raw EthHeader from Ethereum rpc

@@ -1,5 +1,5 @@
 use crate::chain::eth::{EthHeader, EthashProof};
-use parity_scale_codec::{Decode, Encode};
+use codec::{Decode, Encode};
 use serde::Serialize;
 
 /// Darwinia eth relay header thing

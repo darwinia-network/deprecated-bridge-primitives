@@ -3,7 +3,7 @@ use crate::{
     array::{H128, H512},
     hex,
 };
-use parity_scale_codec::{Decode, Encode};
+use codec::{Decode, Encode};
 use serde::{Deserialize, Serialize};
 
 /// Ethash proof
