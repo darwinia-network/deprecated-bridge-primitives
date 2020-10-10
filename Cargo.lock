@@ -635,6 +635,7 @@ dependencies = [
  "serde",
  "serde_json",
  "substrate-subxt",
+ "substrate-subxt-proc-macro",
  "uint",
 ]
 

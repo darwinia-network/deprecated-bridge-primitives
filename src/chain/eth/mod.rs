@@ -9,3 +9,14 @@ pub use self::{
     header::{EthHeader, EthHeaderJson, EthHeaderRPC},
     mmr_proof::{HeaderStuffs, MMRProof, MMRProofJson},
 };
+use codec::{Decode, Encode};
+
+/// Ethereum HeaderThing
+#[derive(Encode, Decode)]
+pub struct HeaderThing {
+    header: EthHeader,
+    mmr_root: [u8; 32],
+}
+
+/// PendingHeader
+pub type PendingHeader = (u64, u64, HeaderThing);

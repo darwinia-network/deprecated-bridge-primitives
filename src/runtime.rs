@@ -1,5 +1,6 @@
 //! Darwinia Runtime
 #![cfg(feature = "runtime")]
+use crate::frame::{ethereum::EthereumRelay, relayer_game::RelayerGame};
 use substrate_subxt::{
     balances::{AccountData, Balances},
     extrinsic::DefaultExtra,
@@ -42,3 +43,5 @@ impl System for DarwiniaRuntime {
 }
 
 impl Sudo for DarwiniaRuntime {}
+impl EthereumRelay for DarwiniaRuntime {}
+impl RelayerGame for DarwiniaRuntime {}
