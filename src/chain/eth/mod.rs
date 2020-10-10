@@ -12,7 +12,7 @@ pub use self::{
 use codec::{Decode, Encode};
 
 /// Ethereum HeaderThing
-#[derive(Encode, Decode)]
+#[derive(Encode, Decode, Debug)]
 pub struct HeaderThing {
     header: EthHeader,
     mmr_root: [u8; 32],

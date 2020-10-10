@@ -1,16 +1,14 @@
 //! Darwinia Runtime
 #![cfg(feature = "runtime")]
-use crate::frame::{ethereum::EthereumRelay, relayer_game::RelayerGame};
+use crate::frame::ethereum::{game::EthereumRelayerGame, relay::EthereumRelay};
 use substrate_subxt::{
     balances::{AccountData, Balances},
     extrinsic::DefaultExtra,
-    sp_core, // sp_runtime,
+    sp_core,
     sp_runtime::{
         generic::Header,
-        // impl_opaque_keys,
         traits::{BlakeTwo256, IdentifyAccount, Verify},
-        MultiSignature,
-        OpaqueExtrinsic,
+        MultiSignature, OpaqueExtrinsic,
     },
     sudo::Sudo,
     system::System,
@@ -44,4 +42,4 @@ impl System for DarwiniaRuntime {
 
 impl Sudo for DarwiniaRuntime {}
 impl EthereumRelay for DarwiniaRuntime {}
-impl RelayerGame for DarwiniaRuntime {}
+impl EthereumRelayerGame for DarwiniaRuntime {}
