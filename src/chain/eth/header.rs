@@ -104,28 +104,50 @@ pub struct EthHeaderJson {
     hash: String,
 }
 
-impl From<EthHeader> for EthHeaderJson {
-    fn from(e: EthHeader) -> EthHeaderJson {
+impl Into<EthHeaderJson> for EthHeader {
+    fn into(self) -> EthHeaderJson {
         EthHeaderJson {
-            parent_hash: format!("0x{}", hex!(e.parent_hash.to_vec())),
-            timestamp: e.timestamp,
-            number: e.number,
-            author: format!("0x{}", hex!(e.author.to_vec())),
-            transactions_root: format!("0x{}", hex!(e.transactions_root.to_vec())),
-            uncles_hash: format!("0x{}", hex!(e.uncles_hash.to_vec())),
-            extra_data: format!("0x{}", hex!(e.extra_data.to_vec())),
-            state_root: format!("0x{}", hex!(e.state_root.to_vec())),
-            receipts_root: format!("0x{}", hex!(e.receipts_root.to_vec())),
-            log_bloom: format!("0x{}", hex!(e.log_bloom.0.to_vec())),
-            gas_used: e.gas_used.as_u128(),
-            gas_limit: e.gas_limit.as_u128(),
-            difficulty: e.difficulty.as_u128(),
-            seal: e
+            parent_hash: format!("0x{}", hex!(self.parent_hash.to_vec())),
+            timestamp: self.timestamp,
+            number: self.number,
+            author: format!("0x{}", hex!(self.author.to_vec())),
+            transactions_root: format!("0x{}", hex!(self.transactions_root.to_vec())),
+            uncles_hash: format!("0x{}", hex!(self.uncles_hash.to_vec())),
+            extra_data: format!("0x{}", hex!(self.extra_data.to_vec())),
+            state_root: format!("0x{}", hex!(self.state_root.to_vec())),
+            receipts_root: format!("0x{}", hex!(self.receipts_root.to_vec())),
+            log_bloom: format!("0x{}", hex!(self.log_bloom.0.to_vec())),
+            gas_used: self.gas_used.as_u128(),
+            gas_limit: self.gas_limit.as_u128(),
+            difficulty: self.difficulty.as_u128(),
+            seal: self
                 .seal
                 .iter()
                 .map(|s| format!("0x{}", hex!(s.to_vec())))
                 .collect(),
-            hash: format!("0x{}", hex!(e.hash.unwrap_or_default().to_vec())),
+            hash: format!("0x{}", hex!(self.hash.unwrap_or_default().to_vec())),
+        }
+    }
+}
+
+impl Into<EthHeader> for EthHeaderJson {
+    fn into(self) -> EthHeader {
+        EthHeader {
+            parent_hash: bytes!(self.parent_hash.as_str(), 32),
+            timestamp: self.timestamp,
+            number: self.number,
+            author: bytes!(self.author.as_str(), 20),
+            transactions_root: bytes!(self.transactions_root.as_str(), 32),
+            uncles_hash: bytes!(self.uncles_hash.as_str(), 32),
+            extra_data: bytes!(self.extra_data.as_str()),
+            state_root: bytes!(self.state_root.as_str(), 32),
+            receipts_root: bytes!(self.receipts_root.as_str(), 32),
+            log_bloom: H1024(bytes!(self.log_bloom.as_str(), 256)),
+            gas_used: U256::from(self.gas_used),
+            gas_limit: U256::from(self.gas_limit),
+            difficulty: U256::from(self.difficulty),
+            seal: self.seal.iter().map(|s| bytes!(s.as_str())).collect(),
+            hash: Some(bytes!(self.hash.as_str(), 32)),
         }
     }
 }
