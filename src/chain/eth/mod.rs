@@ -3,11 +3,13 @@
 mod ethash_proof;
 mod header;
 mod mmr_proof;
+mod receipt;
 
 pub use self::{
     ethash_proof::{EthashProof, EthashProofJson},
     header::{EthHeader, EthHeaderJson, EthHeaderRPC},
     mmr_proof::{HeaderStuffs, MMRProof, MMRProofJson},
+    receipt::{EthereumReceiptProof, RedeemFor},
 };
 use codec::{Decode, Encode};
 

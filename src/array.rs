@@ -29,13 +29,16 @@ construct_uint! {
 }
 
 construct_hash_bytes! {
+    #[derive(Clone)]
     pub struct H128(16);
 }
 
 construct_hash_bytes! {
+    #[derive(Clone)]
     pub struct H512(64);
 }
 
 construct_hash_bytes! {
+    #[derive(Clone)]
     pub struct H1024(256);
 }

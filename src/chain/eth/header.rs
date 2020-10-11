@@ -63,7 +63,7 @@ impl Into<EthHeader> for EthHeaderRPC {
 }
 
 /// Darwinia Eth header
-#[derive(Decode, Encode, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
+#[derive(Clone, Decode, Encode, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub struct EthHeader {
     parent_hash: [u8; 32],
     timestamp: u64,
