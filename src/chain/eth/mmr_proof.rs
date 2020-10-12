@@ -8,7 +8,8 @@ pub struct HeaderStuff {
     eth_header: EthereumHeader,
     ethash_proof: Vec<EthashProof>,
     mmr_root: [u8; 32],
-    mmr_proof: MMRProof,
+    // mmr_proof: MMRProof,
+    mmr_proof: Vec<[u8; 32]>,
 }
 
 /// Shadow Proposal Response
@@ -17,7 +18,8 @@ pub struct HeaderStuffJson {
     header: EthereumHeaderJson,
     ethash_proof: Vec<EthashProofJson>,
     mmr_root: String,
-    mmr_proof: MMRProofJson,
+    // mmr_proof: MMRProofJson,
+    mmr_proof: Vec<String>,
 }
 
 // Shadow Proposal Response
@@ -39,7 +41,12 @@ impl Into<HeaderStuff> for HeaderStuffJson {
                 .map(|p| Into::<EthashProof>::into(p.to_owned()))
                 .collect(),
             mmr_root: bytes!(self.mmr_root.as_str(), 32),
-            mmr_proof: self.mmr_proof.into(),
+            // mmr_proof: self.mmr_proof.into(),
+            mmr_proof: self
+                .mmr_proof
+                .iter()
+                .map(|p| bytes!(p.as_str(), 32))
+                .collect(),
         }
     }
 }
@@ -75,7 +82,7 @@ pub struct MMRProof {
 }
 
 /// MMR Proof Json
-#[derive(Clone, Decode, Encode, Default, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Clone, Debug, Decode, Encode, Default, Serialize, Deserialize, PartialEq, Eq)]
 pub struct MMRProofJson {
     /// The index of member leaf
     pub member_leaf_index: u64,

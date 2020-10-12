@@ -15,7 +15,7 @@ pub struct SubmitProposalCall<T: EthereumBacking> {
     /// Ethereum Headerthings
     pub act: RedeemFor,
     /// Ethereum Receipt Proof
-    pub proof: EthereumReceiptProof,
+    pub proof: EthereumReceiptProofThing,
     /// Runtime marker
     pub _runtime: PhantomData<T>,
 }

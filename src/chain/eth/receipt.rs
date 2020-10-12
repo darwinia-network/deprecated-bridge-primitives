@@ -5,6 +5,7 @@ use crate::{
     hex,
 };
 use codec::Encode;
+use serde::Deserialize;
 
 /// Redeem for
 #[derive(Clone, Debug, Encode, PartialEq, Eq)]
@@ -33,7 +34,7 @@ pub struct EthereumReceiptProof {
 }
 
 /// Ethereum Receipt Proof Json
-#[derive(Clone, Debug, Default, PartialEq, Eq)]
+#[derive(Clone, Debug, Default, PartialEq, Eq, Deserialize)]
 pub struct EthereumReceiptProofJson {
     /// Proof index
     pub index: String,
@@ -41,36 +42,6 @@ pub struct EthereumReceiptProofJson {
     pub proof: String,
     /// Ethereum Header Hash
     pub header_hash: String,
-}
-
-/// Ethereum ReceiptProofThing
-pub struct EthereumReceiptProofThing {
-    /// Ethereum Header
-    pub header: EthereumHeader,
-    /// Ethereum Receipt Proof
-    pub receipt_proof: EthereumReceiptProof,
-    /// MMR Proof
-    pub mmr_proof: MMRProof,
-}
-
-/// Ethereum ReceiptProofThing Json
-pub struct EthereumReceiptProofThingJson {
-    /// Ethereum Header
-    pub header: EthereumHeaderJson,
-    /// Ethereum Receipt Proof
-    pub receipt_proof: EthereumReceiptProofJson,
-    /// MMR Proof
-    pub mmr_proof: MMRProofJson,
-}
-
-impl Into<EthereumReceiptProofThing> for EthereumReceiptProofThingJson {
-    fn into(self) -> EthereumReceiptProofThing {
-        EthereumReceiptProofThing {
-            header: self.header.into(),
-            receipt_proof: self.receipt_proof.into(),
-            mmr_proof: self.mmr_proof.into(),
-        }
-    }
 }
 
 impl Into<EthereumReceiptProofJson> for EthereumReceiptProof {
@@ -86,15 +57,53 @@ impl Into<EthereumReceiptProofJson> for EthereumReceiptProof {
 impl Into<EthereumReceiptProof> for EthereumReceiptProofJson {
     fn into(self) -> EthereumReceiptProof {
         let index = if self.index.starts_with("0x") {
-            "00"
-        } else {
             &self.index[2..]
+        } else {
+            "00"
+        };
+
+        let hash = if self.header_hash.len() > 0 {
+            bytes!(self.header_hash.as_str(), 32)
+        } else {
+            [0; 32]
         };
 
         EthereumReceiptProof {
             index: u64::from_str_radix(index, 16).unwrap_or(0),
             proof: bytes!(self.proof.as_str()),
-            header_hash: bytes!(self.header_hash.as_str(), 32),
+            header_hash: hash,
+        }
+    }
+}
+
+/// Ethereum ReceiptProofThing
+#[derive(Clone, Debug, Default, PartialEq, Eq, Encode)]
+pub struct EthereumReceiptProofThing {
+    /// Ethereum Header
+    pub header: EthereumHeader,
+    /// Ethereum Receipt Proof
+    pub receipt_proof: EthereumReceiptProof,
+    /// MMR Proof
+    pub mmr_proof: MMRProof,
+}
+
+/// Ethereum ReceiptProofThing Json
+#[derive(Debug, Deserialize)]
+pub struct EthereumReceiptProofThingJson {
+    /// Ethereum Header
+    pub header: EthereumHeaderJson,
+    /// Ethereum Receipt Proof
+    pub receipt_proof: EthereumReceiptProofJson,
+    /// MMR Proof
+    pub mmr_proof: MMRProofJson,
+}
+
+impl Into<EthereumReceiptProofThing> for EthereumReceiptProofThingJson {
+    fn into(self) -> EthereumReceiptProofThing {
+        EthereumReceiptProofThing {
+            header: self.header.into(),
+            receipt_proof: self.receipt_proof.into(),
+            mmr_proof: self.mmr_proof.into(),
         }
     }
 }
