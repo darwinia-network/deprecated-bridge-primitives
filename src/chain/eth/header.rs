@@ -5,10 +5,10 @@ use crate::{
 use codec::{Decode, Encode};
 use std::{fmt::Debug, str::FromStr};
 
-/// Raw EthHeader from Ethereum rpc
+/// Raw EthereumHeader from Ethereum rpc
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct EthHeaderRPC {
+pub struct EthereumHeaderRPC {
     difficulty: String,
     extra_data: String,
     gas_limit: String,
@@ -33,13 +33,13 @@ pub struct EthHeaderRPC {
     uncles: Vec<String>,
 }
 
-impl Into<EthHeader> for EthHeaderRPC {
-    fn into(self) -> EthHeader {
+impl Into<EthereumHeader> for EthereumHeaderRPC {
+    fn into(self) -> EthereumHeader {
         let seal: Vec<Vec<u8>> = vec![
             rlp::encode(&bytes!(self.mix_hash.as_str())),
             rlp::encode(&bytes!(self.nonce.as_str())),
         ];
-        EthHeader {
+        EthereumHeader {
             parent_hash: bytes!(self.parent_hash.as_str(), 32),
             timestamp: u64::from_str_radix(&self.timestamp.as_str()[2..], 16).unwrap_or_default(),
             number: u64::from_str_radix(&self.number.as_str()[2..], 16).unwrap_or_default(),
@@ -64,7 +64,7 @@ impl Into<EthHeader> for EthHeaderRPC {
 
 /// Darwinia Eth header
 #[derive(Clone, Decode, Encode, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
-pub struct EthHeader {
+pub struct EthereumHeader {
     parent_hash: [u8; 32],
     timestamp: u64,
     number: u64,
@@ -84,8 +84,8 @@ pub struct EthHeader {
 }
 
 /// Darwinia Eth header Json foramt
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize, Default, Encode)]
-pub struct EthHeaderJson {
+#[derive(Debug, PartialEq, Eq, Serialize, Deserialize, Default, Encode, Clone)]
+pub struct EthereumHeaderJson {
     parent_hash: String,
     timestamp: u64,
     /// Block Number
@@ -104,9 +104,9 @@ pub struct EthHeaderJson {
     hash: String,
 }
 
-impl Into<EthHeaderJson> for EthHeader {
-    fn into(self) -> EthHeaderJson {
-        EthHeaderJson {
+impl Into<EthereumHeaderJson> for EthereumHeader {
+    fn into(self) -> EthereumHeaderJson {
+        EthereumHeaderJson {
             parent_hash: format!("0x{}", hex!(self.parent_hash.to_vec())),
             timestamp: self.timestamp,
             number: self.number,
@@ -130,9 +130,9 @@ impl Into<EthHeaderJson> for EthHeader {
     }
 }
 
-impl Into<EthHeader> for EthHeaderJson {
-    fn into(self) -> EthHeader {
-        EthHeader {
+impl Into<EthereumHeader> for EthereumHeaderJson {
+    fn into(self) -> EthereumHeader {
+        EthereumHeader {
             parent_hash: bytes!(self.parent_hash.as_str(), 32),
             timestamp: self.timestamp,
             number: self.number,

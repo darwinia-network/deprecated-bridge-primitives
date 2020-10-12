@@ -1,5 +1,9 @@
 //! Ethereum receipt
-use crate::{bytes, hex};
+use crate::{
+    bytes,
+    chain::eth::{EthereumHeader, EthereumHeaderJson, MMRProof, MMRProofJson},
+    hex,
+};
 use codec::Encode;
 
 /// Redeem for
@@ -37,6 +41,36 @@ pub struct EthereumReceiptProofJson {
     pub proof: String,
     /// Ethereum Header Hash
     pub header_hash: String,
+}
+
+/// Ethereum ReceiptProofThing
+pub struct EthereumReceiptProofThing {
+    /// Ethereum Header
+    pub header: EthereumHeader,
+    /// Ethereum Receipt Proof
+    pub receipt_proof: EthereumReceiptProof,
+    /// MMR Proof
+    pub mmr_proof: MMRProof,
+}
+
+/// Ethereum ReceiptProofThing Json
+pub struct EthereumReceiptProofThingJson {
+    /// Ethereum Header
+    pub header: EthereumHeaderJson,
+    /// Ethereum Receipt Proof
+    pub receipt_proof: EthereumReceiptProofJson,
+    /// MMR Proof
+    pub mmr_proof: MMRProofJson,
+}
+
+impl Into<EthereumReceiptProofThing> for EthereumReceiptProofThingJson {
+    fn into(self) -> EthereumReceiptProofThing {
+        EthereumReceiptProofThing {
+            header: self.header.into(),
+            receipt_proof: self.receipt_proof.into(),
+            mmr_proof: self.mmr_proof.into(),
+        }
+    }
 }
 
 impl Into<EthereumReceiptProofJson> for EthereumReceiptProof {
