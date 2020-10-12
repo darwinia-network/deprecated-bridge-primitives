@@ -62,7 +62,7 @@ impl Into<EthereumReceiptProof> for EthereumReceiptProofJson {
             "00"
         };
 
-        let hash = if self.header_hash.len() > 0 {
+        let hash = if !self.header_hash.is_empty() {
             bytes!(self.header_hash.as_str(), 32)
         } else {
             [0; 32]
