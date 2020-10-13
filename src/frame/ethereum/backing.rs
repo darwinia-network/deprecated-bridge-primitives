@@ -3,11 +3,23 @@ use crate::chain::eth::{EthereumReceiptProofThing, RedeemFor};
 use codec::Encode;
 use core::marker::PhantomData;
 use substrate_subxt::system::{System, SystemEventsDecoder};
-use substrate_subxt_proc_macro::{module, Call};
+use substrate_subxt_proc_macro::{module, Call, Store};
 
 /// Ethereum Relay Pallet
 #[module]
 pub trait EthereumBacking: System {}
+
+/// PendingHeaders Storage
+#[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
+pub struct VerifiedProof<T: EthereumBacking> {
+    #[store(returns = Option<bool>)]
+    /// Receipt tx hash
+    pub tx: [u8; 32],
+    /// Receipt index
+    pub index: u64,
+    /// Runtime marker
+    pub _runtime: PhantomData<T>,
+}
 
 /// Submit proposal call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
