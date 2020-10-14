@@ -1,8 +1,5 @@
 //! Relayer Game
-use crate::chain::{
-    eth::{HeaderThing, PendingHeader},
-    RelayProposal,
-};
+use crate::chain::{eth::HeaderThing, RelayProposal};
 use codec::Encode;
 use core::marker::PhantomData;
 use substrate_subxt::system::{System, SystemEventsDecoder};
@@ -18,7 +15,7 @@ pub trait EthereumRelayerGame: System {}
 /// PendingHeaders Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
 pub struct PendingHeaders<T: EthereumRelayerGame> {
-    #[store(returns = Vec<PendingHeader>)]
+    #[store(returns = Vec<(u64, u64, HeaderThing)>)]
     /// Runtime marker
     pub _runtime: PhantomData<T>,
 }
