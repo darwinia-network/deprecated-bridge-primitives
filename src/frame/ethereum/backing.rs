@@ -23,8 +23,8 @@ pub struct VerifiedProof<T: EthereumBacking> {
 
 /// Submit proposal call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
-pub struct SubmitProposalCall<T: EthereumBacking> {
-    /// Ethereum Headerthings
+pub struct Redeem<T: EthereumBacking> {
+    /// Token type
     pub act: RedeemFor,
     /// Ethereum Receipt Proof
     pub proof: EthereumReceiptProofThing,
