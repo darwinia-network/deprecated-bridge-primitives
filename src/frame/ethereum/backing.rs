@@ -14,9 +14,7 @@ pub trait EthereumBacking: System {}
 pub struct VerifiedProof<T: EthereumBacking> {
     #[store(returns = Option<bool>)]
     /// Receipt tx hash
-    pub tx: [u8; 32],
-    /// Receipt index
-    pub index: u64,
+    pub map: ([u8; 32], u64),
     /// Runtime marker
     pub _runtime: PhantomData<T>,
 }
