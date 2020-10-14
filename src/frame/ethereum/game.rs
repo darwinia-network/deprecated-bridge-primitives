@@ -25,7 +25,7 @@ pub struct PendingHeaders<T: EthereumRelayerGame> {
 
 /// Relay Proposals Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
-pub struct RelayProposals<T: EthereumRelayerGame> {
+pub struct Proposals<T: EthereumRelayerGame> {
     #[store(returns = Vec<RelayProposalT>)]
     /// Runtime marker
     pub _runtime: PhantomData<T>,
