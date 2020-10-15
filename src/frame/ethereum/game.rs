@@ -1,21 +1,22 @@
 //! Relayer Game
-use crate::chain::{eth::HeaderThing, RelayProposal};
-use codec::Encode;
+use codec::{Decode, Encode};
 use core::marker::PhantomData;
 use substrate_subxt::system::{System, SystemEventsDecoder};
 use substrate_subxt_proc_macro::{module, Store};
 
-/// Ethereum Relay Proposal
-pub type RelayProposalT = RelayProposal<[u8; 32], u64, HeaderThing, [u8; 32]>;
-
 /// Ethereum Relay Pallet
 #[module]
-pub trait EthereumRelayerGame: System {}
+pub trait EthereumRelayerGame: System {
+    /// Ethereum Pending Header
+    type PendingHeader: 'static + Encode + Decode + Send + Default;
+    /// Ethereum Relay Proposal
+    type RelayProposal: 'static + Encode + Decode + Send + Default;
+}
 
 /// PendingHeaders Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
 pub struct PendingHeaders<T: EthereumRelayerGame> {
-    #[store(returns = Vec<(u64, u64, HeaderThing)>)]
+    #[store(returns = Vec<T::PendingHeader>)]
     /// Runtime marker
     pub _runtime: PhantomData<T>,
 }
@@ -23,7 +24,7 @@ pub struct PendingHeaders<T: EthereumRelayerGame> {
 /// Relay Proposals Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
 pub struct Proposals<T: EthereumRelayerGame> {
-    #[store(returns = Vec<RelayProposalT>)]
+    #[store(returns = Vec<T::RelayProposal>)]
     /// Runtime marker
     pub _runtime: PhantomData<T>,
 }

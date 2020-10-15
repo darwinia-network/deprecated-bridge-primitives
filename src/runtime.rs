@@ -1,7 +1,11 @@
 //! Darwinia Runtime
 #![cfg(feature = "runtime")]
-use crate::frame::ethereum::{
-    backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay,
+use crate::{
+    chain::{
+        eth::{HeaderThing, PendingHeader},
+        RelayProposal,
+    },
+    frame::ethereum::{backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay},
 };
 use substrate_subxt::{
     balances::{AccountData, Balances},
@@ -44,5 +48,13 @@ impl System for DarwiniaRuntime {
 
 impl Sudo for DarwiniaRuntime {}
 impl EthereumRelay for DarwiniaRuntime {}
-impl EthereumRelayerGame for DarwiniaRuntime {}
+impl EthereumRelayerGame for DarwiniaRuntime {
+    type RelayProposal = RelayProposal<
+        <Self as System>::AccountId,
+        <Self as Balances>::Balance,
+        HeaderThing,
+        <Self as System>::Hash,
+    >;
+    type PendingHeader = PendingHeader;
+}
 impl EthereumBacking for DarwiniaRuntime {}

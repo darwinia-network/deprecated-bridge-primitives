@@ -1,7 +1,7 @@
 use codec::{Decode, Encode};
 
 /// Relay Proposal
-#[derive(Clone, Encode, Decode)]
+#[derive(Clone, Encode, Decode, Default)]
 pub struct RelayProposal<Relayer, Balance, HeaderThing, HeaderHash> {
     /// The relayer of these series of headers
     /// The proposer of this proposal
