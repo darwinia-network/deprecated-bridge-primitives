@@ -15,15 +15,16 @@ pub trait EthereumRelayerGame: System {
 
 /// PendingHeaders Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
-pub struct PendingHeaders<T: EthereumRelayerGame> {
+pub struct PendingHeadersStore<T: EthereumRelayerGame> {
     #[store(returns = Vec<T::PendingHeader>)]
+    pub map: ([u8; 32], u64),
     /// Runtime marker
     pub _runtime: PhantomData<T>,
 }
 
 /// Relay Proposals Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
-pub struct Proposals<T: EthereumRelayerGame> {
+pub struct ProposalsStore<T: EthereumRelayerGame> {
     #[store(returns = Vec<T::RelayProposal>)]
     /// Runtime marker
     pub _runtime: PhantomData<T>,

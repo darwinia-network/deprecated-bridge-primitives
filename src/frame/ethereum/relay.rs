@@ -11,7 +11,7 @@ pub trait EthereumRelay: System {}
 
 /// PendingHeaders Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
-pub struct ConfirmedBlockNumbers<T: EthereumRelay> {
+pub struct ConfirmedBlockNumbersStore<T: EthereumRelay> {
     #[store(returns = Vec<u64>)]
     /// Runtime marker
     pub _runtime: PhantomData<T>,
@@ -19,7 +19,7 @@ pub struct ConfirmedBlockNumbers<T: EthereumRelay> {
 
 /// Submit proposal call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
-pub struct SubmitProposal<T: EthereumRelay> {
+pub struct SubmitProposalCall<T: EthereumRelay> {
     /// Ethereum Headerthings
     pub proposal: Vec<HeaderStuff>,
     /// Runtime marker
@@ -28,7 +28,7 @@ pub struct SubmitProposal<T: EthereumRelay> {
 
 /// Approve pending header call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
-pub struct ApprovePendingHeader<T: EthereumRelay> {
+pub struct ApprovePendingHeaderCall<T: EthereumRelay> {
     /// pending block number
     pub pending: u64,
     /// Runtime marker
@@ -37,7 +37,7 @@ pub struct ApprovePendingHeader<T: EthereumRelay> {
 
 /// Reject pending header call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
-pub struct RejectPendingHeader<T: EthereumRelay> {
+pub struct RejectPendingHeaderCall<T: EthereumRelay> {
     /// pending block number
     pub pending: u64,
     /// Runtime marker

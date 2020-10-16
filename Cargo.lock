@@ -41,6 +41,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8fd72866655d1904d6b0997d0b07ba561047d070fbe29de039031c641b61217"
 
 [[package]]
+name = "ahash"
+version = "0.4.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f6789e291be47ace86a60303502173d84af8327e3627ecf334356ee0f87a164c"
+
+[[package]]
 name = "aho-corasick"
 version = "0.7.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -82,6 +88,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f0e60b75072ecd4168020818c0107f2857bb6c4e64252d8d3983f6263b40a5c3"
 dependencies = [
  "num-traits",
+]
+
+[[package]]
+name = "array-bytes"
+version = "1.0.0"
+source = "git+https://github.com/darwinia-network/darwinia-common.git?branch=bridge-primitives#0ae13dcd6f387841fa4ae8e839be4a10bc866a47"
+dependencies = [
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -626,17 +640,30 @@ name = "darwinia-bridge-primitives"
 version = "0.0.8"
 dependencies = [
  "async-trait",
- "frame-support",
+ "darwinia-relay-primitives",
+ "ethereum-primitives",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "pallet-im-online",
  "pallet-indices",
  "parity-scale-codec",
  "reqwest",
- "rlp",
+ "rlp 0.4.5",
  "serde",
  "serde_json",
  "substrate-subxt",
  "substrate-subxt-proc-macro",
- "uint",
+ "uint 0.8.5",
+]
+
+[[package]]
+name = "darwinia-relay-primitives"
+version = "1.0.0"
+source = "git+https://github.com/darwinia-network/darwinia-common.git?branch=bridge-primitives#0ae13dcd6f387841fa4ae8e839be4a10bc866a47"
+dependencies = [
+ "frame-support 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "parity-scale-codec",
+ "sp-runtime 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -752,6 +779,69 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6576a1755ddffd988788025e75bce9e74b018f7cc226198fe931d077911c6d7e"
 
 [[package]]
+name = "ethash"
+version = "0.4.0"
+source = "git+https://github.com/darwinia-network/rust-ethash#53de20ac319c9ee63f7871b0c14ba3a391b086fa"
+dependencies = [
+ "byteorder",
+ "ethereum-types",
+ "primitive-types 0.6.2",
+ "rlp 0.4.5",
+ "sha3 0.8.2",
+]
+
+[[package]]
+name = "ethbloom"
+version = "0.8.1"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "crunchy",
+ "fixed-hash 0.5.2",
+ "impl-codec 0.4.2 (git+https://github.com/darwinia-network/parity-common.git)",
+ "impl-rlp",
+ "impl-serde 0.3.0",
+ "tiny-keccak",
+]
+
+[[package]]
+name = "ethereum-primitives"
+version = "1.0.0"
+source = "git+https://github.com/darwinia-network/darwinia-common.git?branch=bridge-primitives#0ae13dcd6f387841fa4ae8e839be4a10bc866a47"
+dependencies = [
+ "array-bytes",
+ "ethash",
+ "ethbloom",
+ "ethereum-types",
+ "fixed-hash 0.5.2",
+ "impl-codec 0.4.2 (git+https://github.com/darwinia-network/parity-common.git)",
+ "impl-rlp",
+ "keccak-hash",
+ "merkle-patricia-trie",
+ "parity-scale-codec",
+ "primitive-types 0.6.2",
+ "rlp 0.4.4",
+ "rlp-derive",
+ "serde",
+ "sp-io 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-runtime 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+]
+
+[[package]]
+name = "ethereum-types"
+version = "0.8.0"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "ethbloom",
+ "fixed-hash 0.5.2",
+ "impl-codec 0.4.2 (git+https://github.com/darwinia-network/parity-common.git)",
+ "impl-rlp",
+ "impl-serde 0.3.0",
+ "primitive-types 0.6.2",
+ "uint 0.8.2",
+]
+
+[[package]]
 name = "event-listener"
 version = "2.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -792,6 +882,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ca5faf057445ce5c9d4329e382b2ce7ca38550ef3b73a5348362d5f24e0c7fe3"
 dependencies = [
  "instant",
+]
+
+[[package]]
+name = "fixed-hash"
+version = "0.5.2"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "byteorder",
+ "rand 0.7.3",
+ "rustc-hex",
+ "static_assertions",
 ]
 
 [[package]]
@@ -839,17 +940,17 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "66a5e3fe43568300fdca1c1bfd45ea463a12cca8fbe6172a4f6d58cd54e3fbcc"
 dependencies = [
- "frame-support",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "frame-system",
  "linregress",
  "parity-scale-codec",
  "paste",
  "sp-api",
- "sp-io",
- "sp-runtime",
- "sp-runtime-interface",
- "sp-std",
- "sp-storage",
+ "sp-io 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime-interface 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-storage 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -860,8 +961,8 @@ checksum = "69b82bf25442501c9455fc60090d606e5a36cc6e6953a7afee87fcab4fe2865b"
 dependencies = [
  "parity-scale-codec",
  "serde",
- "sp-core",
- "sp-std",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -872,8 +973,19 @@ checksum = "6b5640bfcb7111643807c63cd38ecdcc923d3253e525f23ab6b366002bf8ecd5"
 dependencies = [
  "parity-scale-codec",
  "serde",
- "sp-core",
- "sp-std",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "frame-metadata"
+version = "12.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "parity-scale-codec",
+ "serde",
+ "sp-core 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -883,8 +995,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "807c32da14bd0e5fb751095335a07938cda6f1488f57d7b0539118e3434980a8"
 dependencies = [
  "bitmask",
- "frame-metadata 12.0.0",
- "frame-support-procedural",
+ "frame-metadata 12.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "frame-support-procedural 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "impl-trait-for-tuples",
  "log",
  "once_cell",
@@ -892,14 +1004,39 @@ dependencies = [
  "paste",
  "serde",
  "smallvec",
- "sp-arithmetic",
- "sp-core",
- "sp-inherents",
- "sp-io",
- "sp-runtime",
- "sp-state-machine",
- "sp-std",
- "sp-tracing",
+ "sp-arithmetic 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-inherents 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-io 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-state-machine 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-tracing 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "frame-support"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "bitmask",
+ "frame-metadata 12.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "frame-support-procedural 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "impl-trait-for-tuples",
+ "log",
+ "once_cell",
+ "parity-scale-codec",
+ "paste",
+ "serde",
+ "smallvec",
+ "sp-arithmetic 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-core 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-inherents 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-io 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-runtime 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-state-machine 0.8.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-tracing 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -908,7 +1045,18 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "508dc2eb44a802f1876e3dc97a76aed8f18b993f75f6cb1975cb83cf45a5d981"
 dependencies = [
- "frame-support-procedural-tools",
+ "frame-support-procedural-tools 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "frame-support-procedural"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "frame-support-procedural-tools 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "proc-macro2",
  "quote",
  "syn",
@@ -920,7 +1068,19 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04f6d1dd14477123180c47024bcc24c1a624ea8631b4f00080d14089907397f4"
 dependencies = [
- "frame-support-procedural-tools-derive",
+ "frame-support-procedural-tools-derive 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "frame-support-procedural-tools"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "frame-support-procedural-tools-derive 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "proc-macro-crate",
  "proc-macro2",
  "quote",
@@ -939,19 +1099,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "frame-support-procedural-tools-derive"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "frame-system"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d172404f0e44b867f5fd14465a27f298b8828b53d7a7a555d3759e1dec3c8f0d"
 dependencies = [
- "frame-support",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "serde",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-io 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-version",
 ]
 
@@ -1243,6 +1413,9 @@ name = "hashbrown"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "00d63df3d41950fb462ed38308eea019113ad1508da725bbedcd0fa5a85ef5f7"
+dependencies = [
+ "ahash 0.4.6",
+]
 
 [[package]]
 name = "heck"
@@ -1388,6 +1561,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1be51a921b067b0eaca2fad532d9400041561aa922221cc65f95a85641c6bf53"
 dependencies = [
  "parity-scale-codec",
+]
+
+[[package]]
+name = "impl-codec"
+version = "0.4.2"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "parity-scale-codec",
+]
+
+[[package]]
+name = "impl-rlp"
+version = "0.2.1"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "rlp 0.4.4",
+]
+
+[[package]]
+name = "impl-serde"
+version = "0.3.0"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "serde",
 ]
 
 [[package]]
@@ -1590,6 +1787,15 @@ name = "keccak"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "67c21572b4949434e4fc1e1978b99c5f77064153c59d998bf13ecd96fb5ecba7"
+
+[[package]]
+name = "keccak-hash"
+version = "0.4.1"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "primitive-types 0.6.2",
+ "tiny-keccak",
+]
 
 [[package]]
 name = "kernel32-sys"
@@ -1830,6 +2036,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "71d96e3f3c0b6325d8ccd83c33b28acb183edcb6c67938ba104ec546854b0882"
 
 [[package]]
+name = "merkle-patricia-trie"
+version = "1.0.0"
+source = "git+https://github.com/darwinia-network/darwinia-common.git?branch=bridge-primitives#0ae13dcd6f387841fa4ae8e839be4a10bc866a47"
+dependencies = [
+ "hashbrown 0.9.0",
+ "keccak-hash",
+ "rlp 0.4.4",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+]
+
+[[package]]
 name = "merlin"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1909,7 +2126,7 @@ dependencies = [
  "digest 0.9.0",
  "sha-1",
  "sha2 0.9.1",
- "sha3",
+ "sha3 0.9.1",
  "unsigned-varint 0.5.1",
 ]
 
@@ -2124,14 +2341,14 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "65706c382ae14ef2768e7411c5faaf1e0a310b4a86d17c3a93dfacb2c5987576"
 dependencies = [
- "frame-support",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "frame-system",
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "sp-authorship",
- "sp-inherents",
- "sp-runtime",
- "sp-std",
+ "sp-inherents 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2140,18 +2357,18 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a29b883f805fa2330742b5d99263eab68583e009be1a2420efab1c3237a08e5"
 dependencies = [
- "frame-support",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "frame-system",
  "pallet-authorship",
  "pallet-session",
  "parity-scale-codec",
  "serde",
- "sp-application-crypto",
- "sp-core",
- "sp-io",
- "sp-runtime",
+ "sp-application-crypto 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-io 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-staking",
- "sp-std",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2160,15 +2377,15 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4d234bf46076a835b473a987f089299ffa3efd961a92b5be9384cc280fcc8c8f"
 dependencies = [
- "frame-support",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "frame-system",
  "parity-scale-codec",
  "serde",
- "sp-core",
- "sp-io",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-io 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-keyring",
- "sp-runtime",
- "sp-std",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2177,19 +2394,19 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8abf520fc0c3259be05f164d43d34d52c86aeef8e8c5fded40145394394fc75d"
 dependencies = [
- "frame-support",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "frame-system",
  "impl-trait-for-tuples",
  "pallet-timestamp",
  "parity-scale-codec",
  "serde",
- "sp-core",
- "sp-io",
- "sp-runtime",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-io 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-session",
  "sp-staking",
- "sp-std",
- "sp-trie",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-trie 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2199,14 +2416,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ccddd55b713f541dff6ccf063cc7ddbc4fc41e92a9fdad8ec9562a0e3b465016"
 dependencies = [
  "frame-benchmarking",
- "frame-support",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "frame-system",
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "serde",
- "sp-inherents",
- "sp-runtime",
- "sp-std",
+ "sp-inherents 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-timestamp",
 ]
 
@@ -2264,7 +2481,7 @@ dependencies = [
  "impl-trait-for-tuples",
  "parity-util-mem-derive",
  "parking_lot 0.10.2",
- "primitive-types",
+ "primitive-types 0.7.2",
  "winapi 0.3.9",
 ]
 
@@ -2451,14 +2668,26 @@ checksum = "c36fa947111f5c62a733b652544dd0016a43ce89619538a8ef92724a6f501a20"
 
 [[package]]
 name = "primitive-types"
+version = "0.6.2"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "fixed-hash 0.5.2",
+ "impl-codec 0.4.2 (git+https://github.com/darwinia-network/parity-common.git)",
+ "impl-rlp",
+ "impl-serde 0.3.0",
+ "uint 0.8.2",
+]
+
+[[package]]
+name = "primitive-types"
 version = "0.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c55c21c64d0eaa4d7ed885d959ef2d62d9e488c27c0e02d9aa5ce6c877b7d5f8"
 dependencies = [
- "fixed-hash",
- "impl-codec",
- "impl-serde",
- "uint",
+ "fixed-hash 0.6.1",
+ "impl-codec 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "impl-serde 0.3.1",
+ "uint 0.8.5",
 ]
 
 [[package]]
@@ -2896,11 +3125,29 @@ dependencies = [
 
 [[package]]
 name = "rlp"
+version = "0.4.4"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "rustc-hex",
+]
+
+[[package]]
+name = "rlp"
 version = "0.4.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4a7d3f9bed94764eac15b8f14af59fac420c236adaff743b7bcc88e265cb4345"
 dependencies = [
  "rustc-hex",
+]
+
+[[package]]
+name = "rlp-derive"
+version = "0.1.0"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -2969,9 +3216,9 @@ dependencies = [
  "serde",
  "serde_json",
  "sp-chain-spec",
- "sp-core",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-rpc",
- "sp-runtime",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-transaction-pool",
  "sp-version",
 ]
@@ -3141,6 +3388,19 @@ dependencies = [
 
 [[package]]
 name = "sha3"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dd26bc0e7a2e3a7c959bc494caf58b72ee0c71d67704e9520f736ca7e4853ecf"
+dependencies = [
+ "block-buffer 0.7.3",
+ "byte-tools",
+ "digest 0.8.1",
+ "keccak",
+ "opaque-debug 0.2.3",
+]
+
+[[package]]
+name = "sha3"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f81199417d4e5de3f04b1e871023acea7389672c4135918f05aa9cbf2f2fa809"
@@ -3218,10 +3478,10 @@ dependencies = [
  "hash-db",
  "parity-scale-codec",
  "sp-api-proc-macro",
- "sp-core",
- "sp-runtime",
- "sp-state-machine",
- "sp-std",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-state-machine 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-version",
 ]
 
@@ -3246,9 +3506,21 @@ checksum = "885eca124aa6ce0bba57c08bc48c4357096996d630a77f572580ef8e2e4df034"
 dependencies = [
  "parity-scale-codec",
  "serde",
- "sp-core",
- "sp-io",
- "sp-std",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-io 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "sp-application-crypto"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "parity-scale-codec",
+ "serde",
+ "sp-core 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-io 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -3261,8 +3533,21 @@ dependencies = [
  "num-traits",
  "parity-scale-codec",
  "serde",
- "sp-debug-derive",
- "sp-std",
+ "sp-debug-derive 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "sp-arithmetic"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "integer-sqrt",
+ "num-traits",
+ "parity-scale-codec",
+ "serde",
+ "sp-debug-derive 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -3272,9 +3557,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "58623adee1ed41752d76151762c80801758f88f85e4016d0338f2b01f4e7bd44"
 dependencies = [
  "parity-scale-codec",
- "sp-inherents",
- "sp-runtime",
- "sp-std",
+ "sp-inherents 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3285,9 +3570,9 @@ checksum = "07d7fca8aa126a9d295843d592f44b48d8cf93880862baeff2968164598ab26c"
 dependencies = [
  "parity-scale-codec",
  "sp-api",
- "sp-inherents",
- "sp-runtime",
- "sp-std",
+ "sp-inherents 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3304,8 +3589,8 @@ dependencies = [
  "sp-block-builder",
  "sp-consensus",
  "sp-database",
- "sp-runtime",
- "sp-state-machine",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-state-machine 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3333,12 +3618,12 @@ dependencies = [
  "parking_lot 0.10.2",
  "serde",
  "sp-api",
- "sp-core",
- "sp-inherents",
- "sp-runtime",
- "sp-state-machine",
- "sp-std",
- "sp-trie",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-inherents 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-state-machine 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-trie 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-utils",
  "sp-version",
  "substrate-prometheus-endpoint",
@@ -3361,7 +3646,7 @@ dependencies = [
  "hash-db",
  "hash256-std-hasher",
  "hex",
- "impl-serde",
+ "impl-serde 0.3.1",
  "lazy_static",
  "libsecp256k1",
  "log",
@@ -3370,18 +3655,62 @@ dependencies = [
  "parity-scale-codec",
  "parity-util-mem",
  "parking_lot 0.10.2",
- "primitive-types",
+ "primitive-types 0.7.2",
  "rand 0.7.3",
  "regex",
  "schnorrkel",
  "secrecy",
  "serde",
  "sha2 0.8.2",
- "sp-debug-derive",
- "sp-externalities",
- "sp-runtime-interface",
- "sp-std",
- "sp-storage",
+ "sp-debug-derive 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-externalities 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime-interface 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-storage 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "substrate-bip39",
+ "tiny-bip39",
+ "tiny-keccak",
+ "twox-hash",
+ "wasmi",
+ "zeroize",
+]
+
+[[package]]
+name = "sp-core"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "base58",
+ "blake2-rfc",
+ "byteorder",
+ "derive_more",
+ "dyn-clonable",
+ "ed25519-dalek",
+ "futures 0.3.6",
+ "hash-db",
+ "hash256-std-hasher",
+ "hex",
+ "impl-serde 0.3.1",
+ "lazy_static",
+ "libsecp256k1",
+ "log",
+ "merlin",
+ "num-traits",
+ "parity-scale-codec",
+ "parity-util-mem",
+ "parking_lot 0.10.2",
+ "primitive-types 0.7.2",
+ "rand 0.7.3",
+ "regex",
+ "schnorrkel",
+ "secrecy",
+ "serde",
+ "sha2 0.8.2",
+ "sp-debug-derive 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-externalities 0.8.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-runtime-interface 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-storage 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "substrate-bip39",
  "tiny-bip39",
  "tiny-keccak",
@@ -3412,6 +3741,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "sp-debug-derive"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "sp-externalities"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3419,8 +3758,19 @@ checksum = "9d87fcd0e0fc5e025459cfe769803488d4894e36d0f8cef80b5239d2e7ef6580"
 dependencies = [
  "environmental",
  "parity-scale-codec",
- "sp-std",
- "sp-storage",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-storage 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "sp-externalities"
+version = "0.8.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "environmental",
+ "parity-scale-codec",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-storage 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -3432,8 +3782,20 @@ dependencies = [
  "derive_more",
  "parity-scale-codec",
  "parking_lot 0.10.2",
- "sp-core",
- "sp-std",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "sp-inherents"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "derive_more",
+ "parity-scale-codec",
+ "parking_lot 0.10.2",
+ "sp-core 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -3448,14 +3810,37 @@ dependencies = [
  "log",
  "parity-scale-codec",
  "parking_lot 0.10.2",
- "sp-core",
- "sp-externalities",
- "sp-runtime-interface",
- "sp-state-machine",
- "sp-std",
- "sp-tracing",
- "sp-trie",
- "sp-wasm-interface",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-externalities 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime-interface 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-state-machine 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-tracing 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-trie 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-wasm-interface 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tracing",
+ "tracing-core",
+]
+
+[[package]]
+name = "sp-io"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "futures 0.3.6",
+ "hash-db",
+ "libsecp256k1",
+ "log",
+ "parity-scale-codec",
+ "parking_lot 0.10.2",
+ "sp-core 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-externalities 0.8.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-runtime-interface 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-state-machine 0.8.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-tracing 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-trie 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-wasm-interface 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "tracing",
  "tracing-core",
 ]
@@ -3467,8 +3852,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f76feeb27b218d58523931ea2d708b622c3bd96a3be1c3a5895bba0f7a54c13"
 dependencies = [
  "lazy_static",
- "sp-core",
- "sp-runtime",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "strum",
 ]
 
@@ -3483,13 +3868,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "sp-panic-handler"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "backtrace",
+ "log",
+]
+
+[[package]]
 name = "sp-rpc"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5c6678f4b42421e6dcdf3896a0c81a403c29ef1cf8d74b046d59125d40da911"
 dependencies = [
  "serde",
- "sp-core",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3507,12 +3901,34 @@ dependencies = [
  "paste",
  "rand 0.7.3",
  "serde",
- "sp-application-crypto",
- "sp-arithmetic",
- "sp-core",
- "sp-inherents",
- "sp-io",
- "sp-std",
+ "sp-application-crypto 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-arithmetic 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-inherents 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-io 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "sp-runtime"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "either",
+ "hash256-std-hasher",
+ "impl-trait-for-tuples",
+ "log",
+ "parity-scale-codec",
+ "parity-util-mem",
+ "paste",
+ "rand 0.7.3",
+ "serde",
+ "sp-application-crypto 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-arithmetic 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-core 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-inherents 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-io 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -3522,13 +3938,29 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b7e363c480cc8c9019b84f85d10c0b56a184079d5d840d2d1d55087ad835dc6"
 dependencies = [
  "parity-scale-codec",
- "primitive-types",
- "sp-externalities",
- "sp-runtime-interface-proc-macro",
- "sp-std",
- "sp-storage",
- "sp-tracing",
- "sp-wasm-interface",
+ "primitive-types 0.7.2",
+ "sp-externalities 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime-interface-proc-macro 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-storage 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-tracing 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-wasm-interface 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "static_assertions",
+]
+
+[[package]]
+name = "sp-runtime-interface"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "parity-scale-codec",
+ "primitive-types 0.7.2",
+ "sp-externalities 0.8.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-runtime-interface-proc-macro 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-storage 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-tracing 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-wasm-interface 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "static_assertions",
 ]
 
@@ -3546,6 +3978,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "sp-runtime-interface-proc-macro"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "Inflector",
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "sp-session"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3553,10 +3997,10 @@ checksum = "d138b1f548933003feaa967de49ed87066643073bcc41be45ef2daaa0991c133"
 dependencies = [
  "parity-scale-codec",
  "sp-api",
- "sp-core",
- "sp-runtime",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-staking",
- "sp-std",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3566,8 +4010,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3b06f9839d8b4312486626bde31d6cd7763dd9b7d93ea9e70c01ca30f0998032"
 dependencies = [
  "parity-scale-codec",
- "sp-runtime",
- "sp-std",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3583,11 +4027,32 @@ dependencies = [
  "parking_lot 0.10.2",
  "rand 0.7.3",
  "smallvec",
- "sp-core",
- "sp-externalities",
- "sp-panic-handler",
- "sp-std",
- "sp-trie",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-externalities 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-panic-handler 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-trie 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "trie-db",
+ "trie-root",
+]
+
+[[package]]
+name = "sp-state-machine"
+version = "0.8.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "hash-db",
+ "log",
+ "num-traits",
+ "parity-scale-codec",
+ "parking_lot 0.10.2",
+ "rand 0.7.3",
+ "smallvec",
+ "sp-core 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-externalities 0.8.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-panic-handler 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-trie 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "trie-db",
  "trie-root",
 ]
@@ -3599,17 +4064,35 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fa2d6e166cead2d3b1d3d8fe0e787d076b7d0296b1760a0d7d340846d0ba42c5"
 
 [[package]]
+name = "sp-std"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+
+[[package]]
 name = "sp-storage"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0f4625e6f8f40995939560f48f89028f658b7929657c68d01c571c81ab5619ff"
 dependencies = [
- "impl-serde",
+ "impl-serde 0.3.1",
  "parity-scale-codec",
  "ref-cast",
  "serde",
- "sp-debug-derive",
- "sp-std",
+ "sp-debug-derive 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "sp-storage"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "impl-serde 0.3.1",
+ "parity-scale-codec",
+ "ref-cast",
+ "serde",
+ "sp-debug-derive 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
 ]
 
 [[package]]
@@ -3621,9 +4104,9 @@ dependencies = [
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "sp-api",
- "sp-inherents",
- "sp-runtime",
- "sp-std",
+ "sp-inherents 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "wasm-timer",
 ]
 
@@ -3635,7 +4118,20 @@ checksum = "b9a5c42c5450991ca3a28c190e75122f5ccedbcb024953e7c357e7aa2afd8534"
 dependencies = [
  "log",
  "parity-scale-codec",
- "sp-std",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tracing",
+ "tracing-core",
+ "tracing-subscriber",
+]
+
+[[package]]
+name = "sp-tracing"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "log",
+ "parity-scale-codec",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "tracing",
  "tracing-core",
  "tracing-subscriber",
@@ -3654,7 +4150,7 @@ dependencies = [
  "serde",
  "sp-api",
  "sp-blockchain",
- "sp-runtime",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3666,8 +4162,22 @@ dependencies = [
  "hash-db",
  "memory-db",
  "parity-scale-codec",
- "sp-core",
- "sp-std",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "trie-db",
+ "trie-root",
+]
+
+[[package]]
+name = "sp-trie"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "hash-db",
+ "memory-db",
+ "parity-scale-codec",
+ "sp-core 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "trie-db",
  "trie-root",
 ]
@@ -3691,11 +4201,11 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "21935199c8765f0d02facc718f9c83149a70ea684fb03612e5161c682b38a301"
 dependencies = [
- "impl-serde",
+ "impl-serde 0.3.1",
  "parity-scale-codec",
  "serde",
- "sp-runtime",
- "sp-std",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3706,7 +4216,18 @@ checksum = "f1c28225e8b7ec7e260f8b46443f8731abda206334cb75c740d2407693f38167"
 dependencies = [
  "impl-trait-for-tuples",
  "parity-scale-codec",
- "sp-std",
+ "sp-std 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasmi",
+]
+
+[[package]]
+name = "sp-wasm-interface"
+version = "2.0.0"
+source = "git+https://github.com/darwinia-network/substrate.git?branch=common-library#7314a78d49d0dc3862c6ef7c8115cb1b3d0c0fd2"
+dependencies = [
+ "impl-trait-for-tuples",
+ "parity-scale-codec",
+ "sp-std 2.0.0 (git+https://github.com/darwinia-network/substrate.git?branch=common-library)",
  "wasmi",
 ]
 
@@ -3787,7 +4308,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "31fb7e8027a8445851f2a45fa82c30d2b005b9e6eb3be9db8669904d6d8ed5ab"
 dependencies = [
  "frame-metadata 11.0.0-rc6",
- "frame-support",
+ "frame-support 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures 0.3.6",
  "hex",
  "jsonrpsee",
@@ -3798,9 +4319,9 @@ dependencies = [
  "sc-rpc-api",
  "serde",
  "serde_json",
- "sp-core",
+ "sp-core 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-rpc",
- "sp-runtime",
+ "sp-runtime 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sp-transaction-pool",
  "sp-version",
  "substrate-subxt-proc-macro",
@@ -4095,7 +4616,7 @@ version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3bfd5b7557925ce778ff9b9ef90e3ade34c524b5ff10e239c69a42d546d2af56"
 dependencies = [
- "rand 0.7.3",
+ "rand 0.5.6",
 ]
 
 [[package]]
@@ -4103,6 +4624,17 @@ name = "typenum"
 version = "1.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "373c8a200f9e67a0c95e62a4f52fbf80c23b4381c05a17845531982fa99e6b33"
+
+[[package]]
+name = "uint"
+version = "0.8.2"
+source = "git+https://github.com/darwinia-network/parity-common.git#12a86aa8af8ff5ccd5c953074aa893c716cf85b5"
+dependencies = [
+ "byteorder",
+ "crunchy",
+ "rustc-hex",
+ "static_assertions",
+]
 
 [[package]]
 name = "uint"

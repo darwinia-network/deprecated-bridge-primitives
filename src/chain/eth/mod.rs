@@ -5,6 +5,7 @@ mod header;
 mod header_thing;
 mod mmr_proof;
 mod receipt;
+mod runtime;
 
 pub use self::{
     ethash_proof::{EthashProof, EthashProofJson},
@@ -16,6 +17,3 @@ pub use self::{
         EthereumReceiptProofThingJson, RedeemFor,
     },
 };
-
-/// PendingHeader
-pub type PendingHeader = (u64, u64, HeaderThing);
