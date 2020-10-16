@@ -2,7 +2,7 @@
 #![cfg(feature = "runtime")]
 
 use crate::{
-    chain::RelayProposal,
+    chain::{eth::EthereumHeaderThing, RelayProposal},
     frame::ethereum::{backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay},
 };
 
@@ -19,22 +19,6 @@ use substrate_subxt::{
     system::System,
     Runtime,
 };
-
-/// Darwinia Runtime types
-pub mod types {
-    use super::sp_core::H256;
-    use codec::{Decode, Encode};
-    pub use ethereum_primitives::header::EthereumHeader;
-
-    /// Darwinia Ethereum Header Thing
-    #[derive(Encode, Decode, Default)]
-    pub struct EthereumHeaderThing {
-        /// Ethereum Header
-        pub header: EthereumHeader,
-        /// MMR Root
-        pub mmr_root: H256,
-    }
-}
 
 /// Darwinia Runtime
 #[derive(Debug, Clone, Eq, PartialEq)]
@@ -67,13 +51,9 @@ impl EthereumRelayerGame for DarwiniaRuntime {
     type RelayProposal = RelayProposal<
         <Self as System>::AccountId,
         <Self as Balances>::Balance,
-        types::EthereumHeaderThing,
+        EthereumHeaderThing,
         <Self as System>::Hash,
     >;
-    type PendingHeader = (
-        <Self as System>::BlockNumber,
-        u64,
-        types::EthereumHeaderThing,
-    );
+    type PendingHeader = (<Self as System>::BlockNumber, u64, EthereumHeaderThing);
 }
 impl EthereumBacking for DarwiniaRuntime {}

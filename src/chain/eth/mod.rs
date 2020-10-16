@@ -10,7 +10,9 @@ mod runtime;
 pub use self::{
     ethash_proof::{EthashProof, EthashProofJson},
     header::{EthereumHeader, EthereumHeaderJson, EthereumHeaderRPC},
-    header_thing::{HeaderThing, HeaderThingJson, HeaderThingWithConfirmationJson},
+    header_thing::{
+        EthereumHeaderThing, EthereumHeaderThingJson, EthereumHeaderThingWithConfirmationJson,
+    },
     mmr_proof::{HeaderStuff, HeaderStuffJson, MMRProof, MMRProofJson},
     receipt::{
         EthereumReceiptProof, EthereumReceiptProofJson, EthereumReceiptProofThing,
