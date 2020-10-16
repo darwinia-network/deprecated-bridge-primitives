@@ -11,7 +11,7 @@ pub trait EthereumBacking: System {}
 
 /// PendingHeaders Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
-pub struct VerifiedProofStore<T: EthereumBacking> {
+pub struct VerifiedProof<T: EthereumBacking> {
     #[store(returns = Option<bool>)]
     /// Receipt tx hash
     pub map: ([u8; 32], u64),
@@ -21,7 +21,7 @@ pub struct VerifiedProofStore<T: EthereumBacking> {
 
 /// Submit proposal call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
-pub struct RedeemCall<T: EthereumBacking> {
+pub struct Redeem<T: EthereumBacking> {
     /// Token type
     pub act: RedeemFor,
     /// Ethereum Receipt Proof
