@@ -36,23 +36,9 @@ package = "parity-scale-codec"
 version = "1"
 features = ["derive"]
 
-# [dependencies.ethereum-primitives]
-# branch = "bridge-primitives"
-# git = "https://github.com/darwinia-network/darwinia-common.git"
-# optional = true
-# package = "ethereum-primitives"
-# 
-# [dependencies.relay-primitives]
-# branch = "bridge-primitives"
-# git = "https://github.com/darwinia-network/darwinia-common.git"
-# optional = true
-# package = "darwinia-relay-primitives"
-
 [features]
 rpc = ["async-trait", "reqwest", "serde_json"]
 runtime = [
-#   "ethereum-primitives",
-#   "relay-primitives",
   "substrate-subxt",
   "substrate-subxt-proc-macro",
   "frame-support",
