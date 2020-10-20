@@ -3,7 +3,10 @@
 
 use crate::{
     chain::{eth::EthereumHeaderThing, RelayProposal},
-    frame::ethereum::{backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay},
+    frame::{
+        ethereum::{backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay},
+        sudo::Sudo,
+    },
 };
 
 use substrate_subxt::{
@@ -15,7 +18,6 @@ use substrate_subxt::{
         traits::{BlakeTwo256, IdentifyAccount, Verify},
         MultiSignature, OpaqueExtrinsic,
     },
-    sudo::Sudo,
     system::System,
     Runtime,
 };
