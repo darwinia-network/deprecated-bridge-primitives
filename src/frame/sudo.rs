@@ -1,5 +1,4 @@
 //! Darwinia Sudo
-
 use codec::{Decode, Encode};
 use core::marker::PhantomData;
 use frame_support::weights::Weight;
