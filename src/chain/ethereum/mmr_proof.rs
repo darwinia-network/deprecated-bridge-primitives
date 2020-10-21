@@ -1,4 +1,4 @@
-use crate::chain::eth::{EthashProof, EthashProofJson, EthereumHeader, EthereumHeaderJson};
+use crate::chain::ethereum::{EthashProof, EthashProofJson, EthereumHeader, EthereumHeaderJson};
 use codec::{Decode, Encode};
 use serde::{Deserialize, Serialize};
 

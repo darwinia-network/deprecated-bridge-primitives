@@ -1,7 +1,7 @@
 //! Ethereum EthereumHeaderThing
 use crate::{
     bytes,
-    chain::eth::{EthereumHeader, EthereumHeaderJson},
+    chain::ethereum::{EthereumHeader, EthereumHeaderJson},
     hex,
 };
 use codec::{Decode, Encode};

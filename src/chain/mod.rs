@@ -1,5 +1,5 @@
 //! Relayable chains
-pub mod eth;
+pub mod ethereum;
 mod proposal;
 
 pub use self::proposal::RelayProposal;
