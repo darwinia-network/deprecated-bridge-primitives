@@ -16,7 +16,7 @@ pub struct EthereumHeaderParcel {
 }
 
 /// Ethereum EthereumHeaderParcel JSON
-#[derive(Default, Deserialize)]
+#[derive(Default, Deserialize, Serialize)]
 pub struct EthereumHeaderParcelJson {
     /// Ethereum header
     pub header: EthereumHeaderJson,

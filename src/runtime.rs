@@ -3,7 +3,11 @@
 
 use crate::{
     chain::{ethereum::EthereumHeaderParcel, RelayProposal},
-    frame::ethereum::{backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay},
+    frame::{
+        collective::Council,
+        ethereum::{backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay},
+        sudo::Sudo,
+    },
 };
 
 use substrate_subxt::{
