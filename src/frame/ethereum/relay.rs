@@ -1,5 +1,5 @@
 //! Ethereum Relay
-use crate::chain::eth::HeaderStuff;
+use crate::chain::ethereum::HeaderStuff;
 use codec::Encode;
 use core::marker::PhantomData;
 use substrate_subxt::system::{System, SystemEventsDecoder};
