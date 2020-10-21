@@ -1,4 +1,4 @@
-//! Ethereum EthereumHeaderThing
+//! Ethereum EthereumHeaderParcel
 use crate::{
     bytes,
     chain::ethereum::{EthereumHeader, EthereumHeaderJson},
@@ -6,47 +6,47 @@ use crate::{
 };
 use codec::{Decode, Encode};
 
-/// Ethereum EthereumHeaderThing
-#[derive(Encode, Decode, Debug, Default, PartialEq, Eq)]
-pub struct EthereumHeaderThing {
+/// Ethereum EthereumHeaderParcel
+#[derive(Encode, Decode, Debug, Default)]
+pub struct EthereumHeaderParcel {
     /// Ethereum header
     pub header: EthereumHeader,
     /// MMR root
     pub mmr_root: [u8; 32],
 }
 
-/// Ethereum EthereumHeaderThing JSON
+/// Ethereum EthereumHeaderParcel JSON
 #[derive(Default, Deserialize)]
-pub struct EthereumHeaderThingJson {
+pub struct EthereumHeaderParcelJson {
     /// Ethereum header
     pub header: EthereumHeaderJson,
     /// MMR root
     pub mmr_root: String,
 }
 
-impl Into<EthereumHeaderThing> for EthereumHeaderThingJson {
-    fn into(self) -> EthereumHeaderThing {
-        EthereumHeaderThing {
+impl Into<EthereumHeaderParcel> for EthereumHeaderParcelJson {
+    fn into(self) -> EthereumHeaderParcel {
+        EthereumHeaderParcel {
             header: self.header.into(),
             mmr_root: bytes!(self.mmr_root.as_str(), 32),
         }
     }
 }
 
-impl Into<EthereumHeaderThingJson> for EthereumHeaderThing {
-    fn into(self) -> EthereumHeaderThingJson {
-        EthereumHeaderThingJson {
+impl Into<EthereumHeaderParcelJson> for EthereumHeaderParcel {
+    fn into(self) -> EthereumHeaderParcelJson {
+        EthereumHeaderParcelJson {
             header: self.header.into(),
             mmr_root: hex!(&self.mmr_root),
         }
     }
 }
 
-/// Ethereum EthereumHeaderThing with proof JSON
+/// Ethereum EthereumHeaderParcel with proof JSON
 #[derive(Default, Deserialize)]
-pub struct EthereumHeaderThingWithConfirmationJson {
-    /// Ethereum header
-    pub header_thing: EthereumHeaderThingJson,
+pub struct EthereumHeaderParcelWithConfirmationJson {
+    /// Ethereum header parcel
+    pub parcel: EthereumHeaderParcelJson,
     /// MMR root
     pub confirmation: u64,
 }

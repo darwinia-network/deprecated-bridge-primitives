@@ -12,7 +12,7 @@ pub use self::{
     header::{EthereumHeader, EthereumHeaderJson, EthereumHeaderRPC},
     mmr::{HeaderStuff, HeaderStuffJson, MMRProof, MMRProofJson},
     parcel::{
-        EthereumHeaderThing, EthereumHeaderThingJson, EthereumHeaderThingWithConfirmationJson,
+        EthereumHeaderParcel, EthereumHeaderParcelJson, EthereumHeaderParcelWithConfirmationJson,
     },
     receipt::{
         EthereumReceiptProof, EthereumReceiptProofJson, EthereumReceiptProofThing,
