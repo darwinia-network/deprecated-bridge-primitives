@@ -12,8 +12,19 @@ pub trait EthereumRelay: System {}
 /// Affirm Call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
 pub struct Affirm<T: EthereumRelay> {
-    ethereum_relay_header_parcel: EthereumRelayHeaderParcel,
-    ethereum_relay_proofs: Option<EthereumRelayProofs>,
+    /// Ethereum relay headr parcel
+    pub ethereum_relay_header_parcel: EthereumRelayHeaderParcel,
+    /// Ethereum relay proofs
+    pub ethereum_relay_proofs: Option<EthereumRelayProofs>,
+    /// Runtime marker
+    pub _runtime: PhantomData<T>,
+}
+
+/// Set confirmed header parcel
+#[derive(Clone, Debug, PartialEq, Call, Encode)]
+pub struct SetConfirmedParcel<T: EthereumRelay> {
+    /// Ethereum relay headr parcel
+    pub ethereum_relay_header_parcel: EthereumRelayHeaderParcel,
     /// Runtime marker
     pub _runtime: PhantomData<T>,
 }
@@ -25,15 +36,6 @@ pub struct ConfirmedBlockNumbers<T: EthereumRelay> {
     /// Runtime marker
     pub _runtime: PhantomData<T>,
 }
-
-// /// Submit proposal call
-// #[derive(Clone, Debug, PartialEq, Call, Encode)]
-// pub struct SubmitProposal<T: EthereumRelay> {
-//     /// Ethereum Headerthings
-//     pub proposal: Vec<EthereumRelayHeaderParcel>,
-//     /// Runtime marker
-//     pub _runtime: PhantomData<T>,
-// }
 
 /// Approve pending header call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]

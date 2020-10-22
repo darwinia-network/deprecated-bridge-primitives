@@ -15,7 +15,7 @@ pub trait EthereumRelayerGame: System {
 
 /// PendingHeaders Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
-pub struct PendingHeaders<T: EthereumRelayerGame> {
+pub struct PendingRelayHeaderParcels<T: EthereumRelayerGame> {
     #[store(returns = Vec<T::PendingHeader>)]
     /// Runtime marker
     pub _runtime: PhantomData<T>,
