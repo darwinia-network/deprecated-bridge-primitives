@@ -6,15 +6,19 @@ use serde::{Deserialize, Serialize};
 /// Darwinia eth relay header thing
 #[derive(Clone, Debug, Decode, Encode, Default, PartialEq, Eq)]
 pub struct EthereumRelayProofs {
-    ethash_proof: Vec<EthashProof>,
-    mmr_proof: Vec<[u8; 32]>,
+    /// Ethereum Hash Proof
+    pub ethash_proof: Vec<EthashProof>,
+    /// MMR Proof
+    pub mmr_proof: Vec<[u8; 32]>,
 }
 
 /// Shadow Proposal Response
 #[derive(Clone, Default, Serialize, Deserialize, PartialEq, Eq)]
 pub struct EthereumRelayProofsJson {
-    ethash_proof: Vec<EthashProofJson>,
-    mmr_proof: Vec<String>,
+    /// Ethereum Hash Proof
+    pub ethash_proof: Vec<EthashProofJson>,
+    /// MMR Proof
+    pub mmr_proof: Vec<String>,
 }
 
 impl Into<EthereumRelayProofs> for EthereumRelayProofsJson {
