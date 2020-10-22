@@ -4,16 +4,15 @@ mod ethash;
 mod header;
 mod mmr;
 mod parcel;
+mod proof;
 mod receipt;
-mod runtime;
 
 pub use self::{
     ethash::{EthashProof, EthashProofJson},
     header::{EthereumHeader, EthereumHeaderJson, EthereumHeaderRPC},
-    mmr::{HeaderStuff, HeaderStuffJson, MMRProof, MMRProofJson},
-    parcel::{
-        EthereumHeaderParcel, EthereumHeaderParcelJson, EthereumHeaderParcelWithConfirmationJson,
-    },
+    mmr::{MMRProof, MMRProofJson},
+    parcel::{EthereumRelayHeaderParcel, EthereumRelayHeaderParcelJson},
+    proof::{EthereumRelayProofs, EthereumRelayProofsJson},
     receipt::{
         EthereumReceiptProof, EthereumReceiptProofJson, EthereumReceiptProofThing,
         EthereumReceiptProofThingJson, RedeemFor,
