@@ -7,6 +7,7 @@ use crate::{
         collective::Council,
         ethereum::{backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay},
         sudo::Sudo,
+        proxy::Proxy,
     },
 };
 
@@ -64,3 +65,15 @@ impl EthereumRelayerGame for DarwiniaRuntime {
     );
 }
 impl EthereumBacking for DarwiniaRuntime {}
+
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Encode, Decode)]
+pub enum ProxyType {
+    Any,
+    NonTransfer,
+    Staking,
+    IdentityJudgement,
+    EthereumBridge,
+}
+impl Proxy for DarwiniaRuntime {
+    type ProxyType = ProxyType;
+}

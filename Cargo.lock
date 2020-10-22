@@ -634,6 +634,7 @@ dependencies = [
  "rlp",
  "serde",
  "serde_json",
+ "sp-runtime",
  "substrate-subxt",
  "substrate-subxt-proc-macro",
  "uint",
