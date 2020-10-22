@@ -23,7 +23,7 @@ pub struct PendingRelayHeaderParcels<T: EthereumRelayerGame> {
 
 /// Relay Proposals Storage
 #[derive(Clone, Debug, Eq, PartialEq, Store, Encode)]
-pub struct Proposals<T: EthereumRelayerGame> {
+pub struct Affirmations<T: EthereumRelayerGame> {
     #[store(returns = Vec<T::RelayProposal>)]
     /// map hasher(blake2_128_concat) GameId<TcBlockNumber<T, I>>
     pub map: ([u8; 32], u64),
