@@ -2,7 +2,7 @@
 #![cfg(feature = "runtime")]
 
 use crate::{
-    chain::{ethereum::EthereumRelayHeaderParcel, RelayProposal},
+    chain::{ethereum::EthereumRelayHeaderParcel, RelayAffirmation, RelayAffirmationId},
     frame::{
         collective::Council,
         ethereum::{backing::EthereumBacking, game::EthereumRelayerGame, relay::EthereumRelay},
@@ -51,13 +51,13 @@ impl Council for DarwiniaRuntime {}
 impl Sudo for DarwiniaRuntime {}
 impl EthereumRelay for DarwiniaRuntime {}
 impl EthereumRelayerGame for DarwiniaRuntime {
-    type RelayProposal = RelayProposal<
+    type RelayAffirmation = RelayAffirmation<
+        EthereumRelayHeaderParcel,
         <Self as System>::AccountId,
         <Self as Balances>::Balance,
-        EthereumRelayHeaderParcel,
-        <Self as System>::Hash,
+        RelayAffirmationId<u64>,
     >;
-    type PendingHeader = (
+    type PendingRelayHeaderParcel = (
         <Self as System>::BlockNumber,
         u64,
         EthereumRelayHeaderParcel,
