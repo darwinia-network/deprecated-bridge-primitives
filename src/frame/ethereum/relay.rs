@@ -26,18 +26,18 @@ pub struct ConfirmedBlockNumbers<T: EthereumRelay> {
     pub _runtime: PhantomData<T>,
 }
 
-/// Submit proposal call
-#[derive(Clone, Debug, PartialEq, Call, Encode)]
-pub struct SubmitProposal<T: EthereumRelay> {
-    /// Ethereum Headerthings
-    pub proposal: Vec<EthereumRelayHeaderParcel>,
-    /// Runtime marker
-    pub _runtime: PhantomData<T>,
-}
+// /// Submit proposal call
+// #[derive(Clone, Debug, PartialEq, Call, Encode)]
+// pub struct SubmitProposal<T: EthereumRelay> {
+//     /// Ethereum Headerthings
+//     pub proposal: Vec<EthereumRelayHeaderParcel>,
+//     /// Runtime marker
+//     pub _runtime: PhantomData<T>,
+// }
 
 /// Approve pending header call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
-pub struct ApprovePendingHeader<T: EthereumRelay> {
+pub struct ApprovePendingRelayHeaderParcel<T: EthereumRelay> {
     /// pending block number
     pub pending: u64,
     /// Runtime marker
@@ -46,7 +46,7 @@ pub struct ApprovePendingHeader<T: EthereumRelay> {
 
 /// Reject pending header call
 #[derive(Clone, Debug, PartialEq, Call, Encode)]
-pub struct RejectPendingHeader<T: EthereumRelay> {
+pub struct RejectPendingRelayHeaderParcel<T: EthereumRelay> {
     /// pending block number
     pub pending: u64,
     /// Runtime marker
