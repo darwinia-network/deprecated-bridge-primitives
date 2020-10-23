@@ -8,11 +8,14 @@ use substrate_subxt::sp_runtime::traits::Member;
 use frame_support::Parameter;
 use substrate_subxt_proc_macro::{module, Call, Store};
 
+/// The subset of the `frame_proxy::Trait` that a client must implement.
 #[module]
 pub trait Proxy: System {
     type ProxyType: Parameter + Member + Ord + PartialOrd + Default;
 }
 
+/// Dispatch the given `call` from an account that the sender is authorised for through
+/// `add_proxy`
 #[derive(Clone, Debug, Eq, PartialEq, Call, Encode)]
 pub struct ProxyCall<'a, T: Proxy> {
     /// Runtime marker.
