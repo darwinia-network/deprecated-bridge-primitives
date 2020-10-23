@@ -4,7 +4,7 @@ use substrate_subxt::{
     system::{System, SystemEventsDecoder},
     Encoded,
 };
-use sp_runtime::traits::Member;
+use substrate_subxt::sp_runtime::traits::Member;
 use frame_support::Parameter;
 use substrate_subxt_proc_macro::{module, Call, Store};
 
