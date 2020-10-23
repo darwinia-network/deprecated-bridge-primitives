@@ -5,6 +5,7 @@ use codec::{Decode, Encode};
 pub enum ProxyType {
     Any,
     NonTransfer,
+    Governance,
     Staking,
     IdentityJudgement,
     EthereumBridge,
@@ -13,6 +14,6 @@ pub enum ProxyType {
 /// default value
 impl Default for ProxyType {
     fn default() -> ProxyType {
-        ProxyType::EthereumBridge
+        ProxyType::Any
     }
 }
